@@ -15,7 +15,7 @@ export default function StickyNavbar({ user, theme, onToggleTheme, onNavigate, o
         <button
           type="button"
           onClick={() => go('/')}
-          className="text-xl font-extrabold tracking-tight text-blue-600 dark:text-blue-400 cursor-pointer"
+          className="text-xl font-extrabold tracking-tight text-blue-700 dark:text-blue-400 cursor-pointer"
         >
           Delcom Blog
         </button>
@@ -108,7 +108,7 @@ export default function StickyNavbar({ user, theme, onToggleTheme, onNavigate, o
                   setMobileOpen(false)
                   onLogout()
                 }}
-                className="block w-full text-left py-1 text-sm text-red-600 cursor-pointer"
+                className="block w-full text-left py-1 text-sm text-red-600 dark:text-red-400 cursor-pointer"
               >
                 Keluar
               </button>

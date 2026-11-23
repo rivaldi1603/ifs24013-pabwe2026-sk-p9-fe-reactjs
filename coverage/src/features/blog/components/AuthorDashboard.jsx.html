@@ -36,28 +36,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>58/58</span>
+                <span class='fraction'>62/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/57</span>
+                <span class='fraction'>59/59</span>
             </div>
         
             
@@ -323,7 +323,16 @@
 <a name='L247'></a><a href='#L247'>247</a>
 <a name='L248'></a><a href='#L248'>248</a>
 <a name='L249'></a><a href='#L249'>249</a>
-<a name='L250'></a><a href='#L250'>250</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,7 +343,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -558,7 +568,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -572,11 +588,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useCallback, useEffect, useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { IconDotsVertical, IconPlus, IconSparkles } from '@tabler/icons-react'
 import PostStats from './PostStats'
-import PostModal from '../modals/PostModal'
-import AiPostGeneratorModal from '../modals/AiPostGeneratorModal'
 import {
   deletePostApi,
   getAuthorPostsApi,
@@ -584,6 +600,9 @@ import {
   togglePublishPostApi,
 } from '../api/blogApi'
 import { formatDate, showConfirmDialog, showErrorAlert, showSuccessAlert } from '../../../helpers/toolsHelper'
+&nbsp;
+const PostModal = lazy(() =&gt; import('../modals/PostModal'))
+const AiPostGeneratorModal = lazy(() =&gt; import('../modals/AiPostGeneratorModal'))
 &nbsp;
 const CATEGORIES = ['Teknologi', 'Pendidikan', 'Gaya Hidup', 'Bisnis', 'Opini', 'Umum']
 &nbsp;
@@ -652,7 +671,7 @@ export default function AuthorDashboard({ theme, onNavigate }) {
       &lt;div className="flex flex-wrap items-center justify-between gap-3 mb-6"&gt;
         &lt;div&gt;
           &lt;h1 className="text-2xl font-bold text-slate-900 dark:text-white"&gt;Workspace Penulis&lt;/h1&gt;
-          &lt;p className="text-sm text-slate-500 dark:text-slate-400"&gt;
+          &lt;p className="text-sm text-slate-600 dark:text-slate-300"&gt;
             Kelola draf dan publikasi artikel blog Anda atau buat draf otomatis dengan AI Generator.
           &lt;/p&gt;
         &lt;/div&gt;
@@ -708,9 +727,9 @@ export default function AuthorDashboard({ theme, onNavigate }) {
       &lt;/div&gt;
 &nbsp;
       {loading ? (
-        &lt;p className="text-slate-500 py-6"&gt;Memuat daftar artikel...&lt;/p&gt;
+        &lt;p className="text-slate-600 dark:text-slate-300 py-6"&gt;Memuat daftar artikel...&lt;/p&gt;
       ) : posts.length === 0 ? (
-        &lt;div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center text-slate-500"&gt;
+        &lt;div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center text-slate-600 dark:text-slate-300"&gt;
           Belum ada artikel. Mulai menulis atau gunakan AI Generator sekarang!
         &lt;/div&gt;
       ) : (
@@ -731,7 +750,7 @@ export default function AuthorDashboard({ theme, onNavigate }) {
                 &lt;tr key={post.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30"&gt;
                   &lt;td className="px-4 py-3 font-medium text-slate-900 dark:text-white"&gt;
                     &lt;p&gt;{post.title}&lt;/p&gt;
-                    &lt;p className="text-xs text-slate-400"&gt;/{post.slug}&lt;/p&gt;
+                    &lt;p className="text-xs text-slate-600 dark:text-slate-300"&gt;/{post.slug}&lt;/p&gt;
                   &lt;/td&gt;
                   &lt;td className="px-4 py-3"&gt;{post.category}&lt;/td&gt;
                   &lt;td className="px-4 py-3"&gt;{post.reading_time} menit&lt;/td&gt;
@@ -744,14 +763,14 @@ export default function AuthorDashboard({ theme, onNavigate }) {
                       onClick={() =&gt; handleTogglePublish(post.id)}
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold transition cursor-pointer ${
                         post.is_published
-                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'
-                          : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300'
+                          : 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
                       }`}
                     &gt;
                       {post.is_published ? 'Terbit' : 'Draf'}
                     &lt;/button&gt;
                   &lt;/td&gt;
-                  &lt;td className="px-4 py-3 text-slate-500 dark:text-slate-400"&gt;
+                  &lt;td className="px-4 py-3 text-slate-600 dark:text-slate-300"&gt;
                     {formatDate(post.published_at || post.created_at)}
                   &lt;/td&gt;
                   &lt;td className="px-4 py-3 text-right relative"&gt;
@@ -805,19 +824,27 @@ export default function AuthorDashboard({ theme, onNavigate }) {
         &lt;/div&gt;
       )}
 &nbsp;
-      &lt;PostModal
-        isOpen={postModalOpen}
-        onClose={() =&gt; setPostModalOpen(false)}
-        initialPost={editingPost}
-        theme={theme}
-        onSaved={loadData}
-      /&gt;
+      {postModalOpen &amp;&amp; (
+        &lt;Suspense fallback={null}&gt;
+          &lt;PostModal
+            isOpen={postModalOpen}
+            onClose={() =&gt; setPostModalOpen(false)}
+            initialPost={editingPost}
+            theme={theme}
+            onSaved={loadData}
+          /&gt;
+        &lt;/Suspense&gt;
+      )}
 &nbsp;
-      &lt;AiPostGeneratorModal
-        isOpen={aiModalOpen}
-        onClose={() =&gt; setAiModalOpen(false)}
-        onApplyDraft={handleApplyAiDraft}
-      /&gt;
+      {aiModalOpen &amp;&amp; (
+        &lt;Suspense fallback={null}&gt;
+          &lt;AiPostGeneratorModal
+            isOpen={aiModalOpen}
+            onClose={() =&gt; setAiModalOpen(false)}
+            onApplyDraft={handleApplyAiDraft}
+          /&gt;
+        &lt;/Suspense&gt;
+      )}
     &lt;/div&gt;
   )
 }
@@ -828,7 +855,7 @@ export default function AuthorDashboard({ theme, onNavigate }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-23T09:02:48.855Z
+                at 2026-11-23T09:44:50.952Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

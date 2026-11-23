@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import {
   getStoredUser,
   removeStoredUser,
@@ -8,12 +8,13 @@ import {
 } from './helpers/apiHelper'
 import { useTheme } from './hooks/useTheme'
 import { logoutApi } from './features/auth/api/authApi'
-import AuthPage from './features/auth/components/AuthPage'
 import StickyNavbar from './features/blog/components/StickyNavbar'
 import PublicArticleList from './features/blog/components/PublicArticleList'
-import PublicArticleDetail from './features/blog/components/PublicArticleDetail'
-import AuthorDashboard from './features/blog/components/AuthorDashboard'
-import AdminDashboard from './features/admin/components/AdminDashboard'
+
+const AuthPage = lazy(() => import('./features/auth/components/AuthPage'))
+const PublicArticleDetail = lazy(() => import('./features/blog/components/PublicArticleDetail'))
+const AuthorDashboard = lazy(() => import('./features/blog/components/AuthorDashboard'))
+const AdminDashboard = lazy(() => import('./features/admin/components/AdminDashboard'))
 
 export default function App() {
   const [pathname, setPathname] = useState(() => window.location.pathname)
@@ -89,7 +90,11 @@ export default function App() {
         onNavigate={navigate}
         onLogout={handleLogout}
       />
-      <main>{renderPage()}</main>
+      <main>
+        <Suspense fallback={<div className="w-full px-6 py-10 text-slate-600 dark:text-slate-300">Memuat halaman...</div>}>
+          {renderPage()}
+        </Suspense>
+      </main>
     </div>
   )
 }

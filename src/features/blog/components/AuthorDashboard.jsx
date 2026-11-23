@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { IconDotsVertical, IconPlus, IconSparkles } from '@tabler/icons-react'
 import PostStats from './PostStats'
-import PostModal from '../modals/PostModal'
-import AiPostGeneratorModal from '../modals/AiPostGeneratorModal'
 import {
   deletePostApi,
   getAuthorPostsApi,
@@ -10,6 +8,9 @@ import {
   togglePublishPostApi,
 } from '../api/blogApi'
 import { formatDate, showConfirmDialog, showErrorAlert, showSuccessAlert } from '../../../helpers/toolsHelper'
+
+const PostModal = lazy(() => import('../modals/PostModal'))
+const AiPostGeneratorModal = lazy(() => import('../modals/AiPostGeneratorModal'))
 
 const CATEGORIES = ['Teknologi', 'Pendidikan', 'Gaya Hidup', 'Bisnis', 'Opini', 'Umum']
 
@@ -78,7 +79,7 @@ export default function AuthorDashboard({ theme, onNavigate }) {
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Workspace Penulis</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-600 dark:text-slate-300">
             Kelola draf dan publikasi artikel blog Anda atau buat draf otomatis dengan AI Generator.
           </p>
         </div>
@@ -134,9 +135,9 @@ export default function AuthorDashboard({ theme, onNavigate }) {
       </div>
 
       {loading ? (
-        <p className="text-slate-500 py-6">Memuat daftar artikel...</p>
+        <p className="text-slate-600 dark:text-slate-300 py-6">Memuat daftar artikel...</p>
       ) : posts.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center text-slate-500">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center text-slate-600 dark:text-slate-300">
           Belum ada artikel. Mulai menulis atau gunakan AI Generator sekarang!
         </div>
       ) : (
@@ -157,7 +158,7 @@ export default function AuthorDashboard({ theme, onNavigate }) {
                 <tr key={post.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30">
                   <td className="px-4 py-3 font-medium text-slate-900 dark:text-white">
                     <p>{post.title}</p>
-                    <p className="text-xs text-slate-400">/{post.slug}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-300">/{post.slug}</p>
                   </td>
                   <td className="px-4 py-3">{post.category}</td>
                   <td className="px-4 py-3">{post.reading_time} menit</td>
@@ -170,14 +171,14 @@ export default function AuthorDashboard({ theme, onNavigate }) {
                       onClick={() => handleTogglePublish(post.id)}
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold transition cursor-pointer ${
                         post.is_published
-                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'
-                          : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300'
+                          : 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
                       }`}
                     >
                       {post.is_published ? 'Terbit' : 'Draf'}
                     </button>
                   </td>
-                  <td className="px-4 py-3 text-slate-500 dark:text-slate-400">
+                  <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
                     {formatDate(post.published_at || post.created_at)}
                   </td>
                   <td className="px-4 py-3 text-right relative">
@@ -231,19 +232,27 @@ export default function AuthorDashboard({ theme, onNavigate }) {
         </div>
       )}
 
-      <PostModal
-        isOpen={postModalOpen}
-        onClose={() => setPostModalOpen(false)}
-        initialPost={editingPost}
-        theme={theme}
-        onSaved={loadData}
-      />
+      {postModalOpen && (
+        <Suspense fallback={null}>
+          <PostModal
+            isOpen={postModalOpen}
+            onClose={() => setPostModalOpen(false)}
+            initialPost={editingPost}
+            theme={theme}
+            onSaved={loadData}
+          />
+        </Suspense>
+      )}
 
-      <AiPostGeneratorModal
-        isOpen={aiModalOpen}
-        onClose={() => setAiModalOpen(false)}
-        onApplyDraft={handleApplyAiDraft}
-      />
+      {aiModalOpen && (
+        <Suspense fallback={null}>
+          <AiPostGeneratorModal
+            isOpen={aiModalOpen}
+            onClose={() => setAiModalOpen(false)}
+            onApplyDraft={handleApplyAiDraft}
+          />
+        </Suspense>
+      )}
     </div>
   )
 }

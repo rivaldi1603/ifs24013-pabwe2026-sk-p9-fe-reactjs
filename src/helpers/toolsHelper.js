@@ -1,4 +1,7 @@
-import Swal from 'sweetalert2'
+async function getSwal() {
+  const { default: Swal } = await import('sweetalert2')
+  return Swal
+}
 
 export function formatDate(dateString) {
   if (!dateString) return '-'
@@ -11,7 +14,8 @@ export function formatDate(dateString) {
   })
 }
 
-export function showSuccessAlert(title, text = '') {
+export async function showSuccessAlert(title, text = '') {
+  const Swal = await getSwal()
   return Swal.fire({
     icon: 'success',
     title,
@@ -21,7 +25,8 @@ export function showSuccessAlert(title, text = '') {
   })
 }
 
-export function showErrorAlert(title, text = '') {
+export async function showErrorAlert(title, text = '') {
+  const Swal = await getSwal()
   return Swal.fire({
     icon: 'error',
     title,
@@ -31,13 +36,14 @@ export function showErrorAlert(title, text = '') {
 }
 
 export async function showConfirmDialog(title, text = '') {
+  const Swal = await getSwal()
   const result = await Swal.fire({
     icon: 'warning',
     title,
     text,
     showCancelButton: true,
     confirmButtonColor: '#dc2626',
-    cancelButtonColor: '#64748b',
+    cancelButtonColor: '#475569',
     confirmButtonText: 'Ya, lanjutkan',
     cancelButtonText: 'Batal',
   })

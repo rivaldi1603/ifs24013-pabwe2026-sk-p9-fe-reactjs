@@ -27,7 +27,7 @@ export default function PublicArticleDetail({ slug, theme, onNavigate }) {
   }, [slug])
 
   if (loading) {
-    return <div className="w-full px-6 py-10 text-slate-500">Memuat artikel...</div>
+    return <div className="w-full px-6 py-10 text-slate-600 dark:text-slate-300">Memuat artikel...</div>
   }
 
   if (!post) {
@@ -58,23 +58,23 @@ export default function PublicArticleDetail({ slug, theme, onNavigate }) {
 
       <div className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm p-6 sm:p-10 space-y-6">
         <div className="space-y-3">
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
             {post.category}
           </span>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
             {post.title}
           </h1>
-          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
             <span className="inline-flex items-center gap-1">
-              <IconUser size={16} />
+              <IconUser size={16} aria-hidden="true" />
               {post.author_name || 'Delcom Author'}
             </span>
             <span className="inline-flex items-center gap-1">
-              <IconCalendar size={16} />
+              <IconCalendar size={16} aria-hidden="true" />
               {formatDate(post.published_at || post.created_at)}
             </span>
             <span className="inline-flex items-center gap-1">
-              <IconClock size={16} />
+              <IconClock size={16} aria-hidden="true" />
               {post.reading_time} menit baca
             </span>
           </div>
@@ -84,6 +84,8 @@ export default function PublicArticleDetail({ slug, theme, onNavigate }) {
           <img
             src={post.cover_image_path}
             alt={post.title}
+            decoding="async"
+            fetchPriority="high"
             className="w-full max-h-[420px] object-cover rounded-xl border border-slate-200 dark:border-slate-700"
           />
         )}

@@ -1,0 +1,69 @@
+/* WCAG 2 AA (>= 4.5:1) color-contrast overrides for Toast UI Editor & Viewer */
+.toastui-editor-contents code {
+  color: #881337 !important;
+  background-color: #fdf2f8 !important;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.toastui-editor-contents pre code {
+  color: inherit !important;
+  background-color: transparent !important;
+  padding: 0;
+  border-radius: 0;
+}
+
+.toastui-editor-contents blockquote,
+.toastui-editor-contents blockquote p,
+.toastui-editor-contents blockquote ul,
+.toastui-editor-contents blockquote ol,
+.toastui-editor-contents del,
+.toastui-editor-contents ol > li::before {
+  color: #475569 !important;
+}
+
+.toastui-editor-contents a {
+  color: #1d4ed8 !important;
+}
+
+.toastui-editor-contents a:hover {
+  color: #1e40af !important;
+}
+
+.dark .toastui-editor-contents code,
+.toastui-editor-dark .toastui-editor-contents code {
+  color: #fda4af !important;
+  background-color: #1e293b !important;
+}
+
+.dark .toastui-editor-contents pre,
+.toastui-editor-dark .toastui-editor-contents pre {
+  background-color: #0f172a !important;
+  color: #e2e8f0 !important;
+}
+
+.dark .toastui-editor-contents pre code,
+.toastui-editor-dark .toastui-editor-contents pre code {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+.dark .toastui-editor-contents blockquote,
+.dark .toastui-editor-contents blockquote p,
+.dark .toastui-editor-contents blockquote ul,
+.dark .toastui-editor-contents blockquote ol,
+.dark .toastui-editor-contents del,
+.dark .toastui-editor-contents ol > li::before,
+.toastui-editor-dark .toastui-editor-contents blockquote,
+.toastui-editor-dark .toastui-editor-contents blockquote p,
+.toastui-editor-dark .toastui-editor-contents blockquote ul,
+.toastui-editor-dark .toastui-editor-contents blockquote ol,
+.toastui-editor-dark .toastui-editor-contents del,
+.toastui-editor-dark .toastui-editor-contents ol > li::before {
+  color: #cbd5e1 !important;
+}
+
+.dark .toastui-editor-contents a,
+.toastui-editor-dark .toastui-editor-contents a {
+  color: #93c5fd !important;
+}

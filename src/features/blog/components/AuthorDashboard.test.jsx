@@ -105,19 +105,19 @@ describe('AuthorDashboard', () => {
 
     await user.click(screen.getByLabelText('Menu Artikel Draf'))
     await user.click(screen.getByText('Ubah Artikel'))
-    expect(screen.getByTestId('post-modal')).toHaveTextContent('Artikel Draf')
+    expect(await screen.findByTestId('post-modal')).toHaveTextContent('Artikel Draf')
     await user.click(screen.getByText('ClosePostModal'))
 
     // Tambah Artikel modal
     await user.click(screen.getByRole('button', { name: 'Tambah Artikel' }))
-    expect(screen.getByTestId('post-modal')).toHaveTextContent('new-post')
+    expect(await screen.findByTestId('post-modal')).toHaveTextContent('new-post')
     await user.click(screen.getByText('ClosePostModal'))
 
     // AI Generator modal -> apply draft directly to PostModal
     await user.click(screen.getByRole('button', { name: 'AI Generator' }))
-    expect(screen.getByTestId('ai-post-modal')).toBeInTheDocument()
+    expect(await screen.findByTestId('ai-post-modal')).toBeInTheDocument()
     await user.click(screen.getByText('ApplyDraftBtn'))
-    expect(screen.getByTestId('post-modal')).toHaveTextContent('AI Draft')
+    expect(await screen.findByTestId('post-modal')).toHaveTextContent('AI Draft')
     await user.click(screen.getByText('ClosePostModal'))
     await user.click(screen.getByText('CloseAiModal'))
 

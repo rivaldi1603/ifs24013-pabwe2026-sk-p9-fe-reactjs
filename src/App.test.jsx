@@ -58,14 +58,14 @@ describe('App', () => {
 
     // Navigate to article detail
     await user.click(screen.getByText('OpenArticle'))
-    expect(screen.getByTestId('public-detail')).toHaveTextContent('Detail hello-world')
+    expect(await screen.findByTestId('public-detail')).toHaveTextContent('Detail hello-world')
 
     // Guest visiting /author redirects to login; visiting /admin falls back to public list
     act(() => {
       window.history.pushState({}, '', '/author')
       window.dispatchEvent(new PopStateEvent('popstate'))
     })
-    expect(screen.getByTestId('auth-page-login')).toBeInTheDocument()
+    expect(await screen.findByTestId('auth-page-login')).toBeInTheDocument()
 
     act(() => {
       window.history.pushState({}, '', '/admin')
@@ -75,9 +75,9 @@ describe('App', () => {
 
     // Navigate to /register and login as member -> /author
     await user.click(screen.getByRole('button', { name: 'Daftar' }))
-    expect(screen.getByTestId('auth-page-register')).toBeInTheDocument()
+    expect(await screen.findByTestId('auth-page-register')).toBeInTheDocument()
     await user.click(screen.getByText('LoginAsMember'))
-    expect(screen.getByTestId('author-dashboard')).toBeInTheDocument()
+    expect(await screen.findByTestId('author-dashboard')).toBeInTheDocument()
 
     // Logout with network error fallback
     vi.spyOn(authApi, 'logoutApi').mockRejectedValueOnce(new Error('net'))
@@ -86,8 +86,8 @@ describe('App', () => {
 
     // Navigate to /login, login as admin -> /admin
     await user.click(screen.getByRole('button', { name: 'Masuk' }))
-    await user.click(screen.getByText('LoginAsAdmin'))
-    expect(screen.getByTestId('admin-dashboard')).toBeInTheDocument()
+    await user.click(await screen.findByText('LoginAsAdmin'))
+    expect(await screen.findByTestId('admin-dashboard')).toBeInTheDocument()
 
     // Navigate same path branch
     await user.click(screen.getByText('Admin Panel'))

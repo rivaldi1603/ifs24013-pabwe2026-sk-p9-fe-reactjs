@@ -48,10 +48,10 @@ export default function PublicArticleList({ user, onNavigate }) {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-      <section className="rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 sm:p-8 shadow-lg flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <section className="rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-6 sm:p-8 shadow-lg flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold">Jelajahi Artikel Delcom Blog</h1>
-          <p className="text-sm sm:text-base text-blue-100 mt-1">
+          <p className="text-sm sm:text-base text-blue-50 mt-1">
             Temukan wawasan teknologi, pendidikan, bisnis, dan opini terbaru dari para penulis kami.
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function PublicArticleList({ user, onNavigate }) {
 
       <div className="space-y-4">
         <div className="relative">
-          <IconSearch size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+          <IconSearch size={18} aria-hidden="true" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             aria-label="Cari artikel publik"
@@ -108,7 +108,7 @@ export default function PublicArticleList({ user, onNavigate }) {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer ${
                   active
-                    ? 'bg-blue-600 text-white shadow'
+                    ? 'bg-blue-700 text-white shadow'
                     : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-blue-400'
                 }`}
               >
@@ -120,9 +120,9 @@ export default function PublicArticleList({ user, onNavigate }) {
       </div>
 
       {loading ? (
-        <p className="text-slate-500">Memuat artikel publik...</p>
+        <p className="text-slate-600 dark:text-slate-300">Memuat artikel publik...</p>
       ) : posts.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center text-slate-500">
+        <div className="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center text-slate-600 dark:text-slate-300">
           Belum ada artikel publik yang cocok dengan pencarian Anda.
         </div>
       ) : (
@@ -134,11 +134,11 @@ export default function PublicArticleList({ user, onNavigate }) {
             >
               <div className="p-5 space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 font-semibold">
+                  <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 font-semibold">
                     {post.category}
                   </span>
-                  <span className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400">
-                    <IconClock size={14} />
+                  <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-300">
+                    <IconClock size={14} aria-hidden="true" />
                     {post.reading_time} menit baca
                   </span>
                 </div>
@@ -147,7 +147,7 @@ export default function PublicArticleList({ user, onNavigate }) {
                   <button
                     type="button"
                     onClick={() => onNavigate(`/posts/${post.slug}`)}
-                    className="text-left hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
+                    className="text-left hover:text-blue-700 dark:hover:text-blue-400 cursor-pointer"
                   >
                     {post.title}
                   </button>
@@ -156,9 +156,9 @@ export default function PublicArticleList({ user, onNavigate }) {
                 <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3">{post.excerpt}</p>
               </div>
 
-              <div className="px-5 py-3.5 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                <span className="inline-flex items-center gap-1 font-medium text-slate-700 dark:text-slate-300">
-                  <IconUser size={14} />
+              <div className="px-5 py-3.5 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-xs text-slate-600 dark:text-slate-300">
+                <span className="inline-flex items-center gap-1 font-medium text-slate-700 dark:text-slate-200">
+                  <IconUser size={14} aria-hidden="true" />
                   {post.author_name || 'Delcom'}
                 </span>
                 <span>{formatDate(post.published_at || post.created_at)}</span>

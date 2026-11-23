@@ -42,30 +42,30 @@ export default function AdminDashboard({ onNavigate }) {
     <div className="w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Admin Panel — Delcom Blog</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+        <p className="text-sm text-slate-600 dark:text-slate-300">
           Monitoring seluruh pengguna terdaftar dan arsip artikel dari semua penulis dalam sistem.
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="rounded-xl border-l-4 border-blue-500 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
-          <p className="text-xs uppercase text-slate-500">Total Pengguna</p>
-          <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{users.length}</p>
+          <p className="text-xs uppercase text-slate-600 dark:text-slate-300">Total Pengguna</p>
+          <p className="text-2xl font-bold text-blue-700 dark:text-blue-400">{users.length}</p>
         </div>
         <div className="rounded-xl border-l-4 border-emerald-500 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
-          <p className="text-xs uppercase text-slate-500">Total Artikel Sistem</p>
-          <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{allPosts.length}</p>
+          <p className="text-xs uppercase text-slate-600 dark:text-slate-300">Total Artikel Sistem</p>
+          <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">{allPosts.length}</p>
         </div>
         <div className="rounded-xl border-l-4 border-violet-500 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
-          <p className="text-xs uppercase text-slate-500">Artikel Terbit</p>
-          <p className="text-2xl font-bold text-violet-600 dark:text-violet-400">
+          <p className="text-xs uppercase text-slate-600 dark:text-slate-300">Artikel Terbit</p>
+          <p className="text-2xl font-bold text-violet-700 dark:text-violet-400">
             {allPosts.filter((p) => p.is_published).length}
           </p>
         </div>
       </div>
 
       {loading ? (
-        <p className="text-slate-500">Memuat data administrasi...</p>
+        <p className="text-slate-600 dark:text-slate-300">Memuat data administrasi...</p>
       ) : (
         <>
           <section className="space-y-3">
@@ -116,13 +116,13 @@ export default function AdminDashboard({ onNavigate }) {
                 Artikel Milik: {selectedUser.username}
               </h2>
               {userPosts.length === 0 ? (
-                <p className="text-sm text-slate-500">Penulis ini belum memiliki artikel.</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Penulis ini belum memiliki artikel.</p>
               ) : (
                 <ul className="divide-y divide-slate-200 dark:divide-slate-700 text-sm">
                   {userPosts.map((p) => (
                     <li key={p.id} className="py-2.5 flex items-center justify-between gap-2">
                       <span className="font-medium text-slate-800 dark:text-slate-100">{p.title}</span>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-slate-600 dark:text-slate-300">
                         {p.category} • {p.is_published ? 'Terbit' : 'Draf'} • {formatDate(p.created_at)}
                       </span>
                     </li>
@@ -166,17 +166,17 @@ export default function AdminDashboard({ onNavigate }) {
                       <td className="px-4 py-3">{p.category}</td>
                       <td className="px-4 py-3">
                         <span
-                          className={`px-2 py-0.5 rounded-full text-xs ${
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                             p.is_published
-                              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'
-                              : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
+                              ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300'
+                              : 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
                           }`}
                         >
                           {p.is_published ? 'Terbit' : 'Draf'}
                         </span>
                       </td>
                       <td className="px-4 py-3">{p.reading_time} menit</td>
-                      <td className="px-4 py-3 text-slate-500">{formatDate(p.published_at || p.created_at)}</td>
+                      <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{formatDate(p.published_at || p.created_at)}</td>
                     </tr>
                   ))}
                 </tbody>

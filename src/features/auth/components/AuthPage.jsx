@@ -33,7 +33,7 @@ export default function AuthPage({ mode = 'login', onAuthSuccess, onNavigate }) 
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
           {isRegister ? 'Daftar Penulis Delcom Blog' : 'Masuk ke Delcom Blog'}
         </h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-6">
           {isRegister
             ? 'Buat akun penulis untuk menulis artikel Markdown dan menggunakan AI Generator.'
             : 'Masuk untuk mengakses Workspace Penulis atau Admin Panel.'}
@@ -97,13 +97,13 @@ export default function AuthPage({ mode = 'login', onAuthSuccess, onNavigate }) 
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
+        <div className="mt-6 text-center text-sm text-slate-600 dark:text-slate-300">
           {isRegister ? (
-            <button type="button" onClick={() => onNavigate('/login')} className="text-blue-600 hover:underline cursor-pointer">
+            <button type="button" onClick={() => onNavigate('/login')} className="text-blue-700 dark:text-blue-400 hover:underline cursor-pointer">
               Sudah punya akun? Masuk di sini
             </button>
           ) : (
-            <button type="button" onClick={() => onNavigate('/register')} className="text-blue-600 hover:underline cursor-pointer">
+            <button type="button" onClick={() => onNavigate('/register')} className="text-blue-700 dark:text-blue-400 hover:underline cursor-pointer">
               Belum punya akun? Daftar sekarang
             </button>
           )}

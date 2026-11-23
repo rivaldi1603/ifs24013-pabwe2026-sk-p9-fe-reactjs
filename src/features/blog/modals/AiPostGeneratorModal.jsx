@@ -112,7 +112,7 @@ export default function AiPostGeneratorModal({ isOpen, onClose, onApplyDraft }) 
             <div className="space-y-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">{draft.title}</h3>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300">
                   {draft.category}
                 </span>
               </div>
@@ -137,7 +137,7 @@ export default function AiPostGeneratorModal({ isOpen, onClose, onApplyDraft }) 
                         >
                           {src.title}
                         </a>
-                        <p className="text-slate-500 dark:text-slate-400 mt-0.5">{src.snippet}</p>
+                        <p className="text-slate-600 dark:text-slate-300 mt-0.5">{src.snippet}</p>
                       </li>
                     ))}
                   </ul>
@@ -159,7 +159,7 @@ export default function AiPostGeneratorModal({ isOpen, onClose, onApplyDraft }) 
             type="button"
             disabled={!draft}
             onClick={handleApply}
-            className="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-semibold disabled:opacity-50 cursor-pointer"
           >
             Simpan & Terapkan ke Editor
           </button>

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer'
 import '@toast-ui/editor/dist/toastui-editor-viewer.css'
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css'
+import './toastui-overrides.css'
 
 export default function MarkdownViewer({ content = '', theme = 'light' }) {
   const containerRef = useRef(null)
