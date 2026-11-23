@@ -1,6 +1,15 @@
 const TOKEN_KEY = 'delcom_blog_token'
 const USER_KEY = 'delcom_blog_user'
 
+export function getApiBaseUrl(env = import.meta.env) {
+  const raw = env?.VITE_DELCOM_BASEURL || env?.VITE_API_BASE_URL || ''
+  return raw.replace(/\/+$/, '').replace(/\/api$/, '')
+}
+
+export function resolveApiUrl(path, baseUrl = getApiBaseUrl()) {
+  return `${baseUrl}${path}`
+}
+
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY) || ''
 }
@@ -42,7 +51,7 @@ export async function apiRequest(path, options = {}) {
     headers.Authorization = `Bearer ${token}`
   }
 
-  const response = await fetch(path, {
+  const response = await fetch(resolveApiUrl(path), {
     ...options,
     headers,
   })

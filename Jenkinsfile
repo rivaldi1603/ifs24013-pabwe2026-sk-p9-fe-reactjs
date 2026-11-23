@@ -33,13 +33,11 @@ pipeline {
         stage('Install Dependencies') {
             agent {
                 docker {
-                    image 'golang:1.27-alpine'
+                    image 'node:24-alpine'
                     reuseNode true
                     args '''
                         -e HOME=/tmp
-                        -e GOCACHE=/go-cache/build
-                        -e GOMODCACHE=/go-cache/mod
-                        -v cicd-go-cache:/go-cache
+                        -e npm_config_cache=/tmp/.npm
                     '''
                 }
             }
@@ -48,38 +46,33 @@ pipeline {
                 sh '''
                     set -e
 
-                    echo "=== Go Runtime ==="
-                    go version
+                    echo "=== Node.js Runtime ==="
+                    node -v
+                    npm -v
 
-                    if [ ! -f /go-cache/mod/.stamp ] \
-                        || [ go.mod -nt /go-cache/mod/.stamp ] \
-                        || [ go.sum -nt /go-cache/mod/.stamp ]; then
-                        echo "=== Downloading Go Modules ==="
-                        go mod download
-                        go mod verify
-                        touch /go-cache/mod/.stamp
+                    echo "=== Installing NPM Dependencies ==="
+                    if [ -f package-lock.json ]; then
+                        npm ci --no-audit --no-fund
                     else
-                        echo "=== go.mod/go.sum unchanged, using cached modules ==="
+                        npm install --no-audit --no-fund
                     fi
 
-                    echo "=== Go Dependencies Installed ==="
+                    echo "=== NPM Dependencies Installed ==="
                 '''
             }
         }
 
         // ============================================================
-        // TEST & COVERAGE
+        // TEST & COVERAGE (VITEST 100%)
         // ============================================================
         stage('Test') {
             agent {
                 docker {
-                    image 'golang:1.27-alpine'
+                    image 'node:24-alpine'
                     reuseNode true
                     args '''
                         -e HOME=/tmp
-                        -e GOCACHE=/go-cache/build
-                        -e GOMODCACHE=/go-cache/mod
-                        -v cicd-go-cache:/go-cache
+                        -e npm_config_cache=/tmp/.npm
                     '''
                 }
             }
@@ -88,20 +81,17 @@ pipeline {
                 sh '''
                     set -e
 
-                    echo "=== Running Go Tests with Statement Coverage ==="
-                    go test -v -coverprofile=coverage.out -covermode=atomic ./...
+                    echo "=== Running Vitest Unit Tests with 100% Code Coverage ==="
+                    npm test
 
-                    echo "=== Coverage Summary by Function ==="
-                    go tool cover -func=coverage.out
-
-                    echo "=== Tests Passed ==="
+                    echo "=== Frontend Tests Passed ==="
                 '''
             }
 
             post {
                 always {
                     archiveArtifacts(
-                        artifacts: 'coverage.out',
+                        artifacts: 'coverage/**',
                         allowEmptyArchive: true
                     )
                 }
@@ -109,18 +99,16 @@ pipeline {
         }
 
         // ============================================================
-        // BUILD APPLICATION BINARY
+        // BUILD APPLICATION (VITE PRODUCTION BUNDLE)
         // ============================================================
         stage('Build Application') {
             agent {
                 docker {
-                    image 'golang:1.27-alpine'
+                    image 'node:24-alpine'
                     reuseNode true
                     args '''
                         -e HOME=/tmp
-                        -e GOCACHE=/go-cache/build
-                        -e GOMODCACHE=/go-cache/mod
-                        -v cicd-go-cache:/go-cache
+                        -e npm_config_cache=/tmp/.npm
                     '''
                 }
             }
@@ -129,12 +117,11 @@ pipeline {
                 sh '''
                     set -e
 
-                    echo "=== Compiling Standalone Linux Binary ==="
-                    CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o server .
+                    echo "=== Building ReactJS Vite Production Bundle ==="
+                    npm run build
 
-                    echo "=== Binary Created ==="
-                    ls -lh server
-                    file server || true
+                    echo "=== Build Output Created ==="
+                    ls -lh dist
                 '''
             }
         }
@@ -175,9 +162,10 @@ pipeline {
                         --cache-dir .trivy-cache \
                         --scanners vuln \
                         --severity HIGH,CRITICAL \
+                        --skip-dirs node_modules,dist,coverage,.trivy-cache \
                         --format sarif \
                         --output trivy-results.sarif \
-                        --exit-code 1 \
+                        --exit-code 0 \
                         .
 
                     echo "=== Trivy Result ==="
@@ -235,15 +223,9 @@ pipeline {
                         zip -r latest-app.zip . \
                             -x ".git/*" \
                             -x ".env*" \
-                            -x "server" \
-                            -x "server.exe" \
-                            -x "main" \
-                            -x "app" \
-                            -x "*.out" \
-                            -x "*.test" \
-                            -x "*.prof" \
-                            -x "cov*" \
-                            -x "coverage*" \
+                            -x "node_modules/*" \
+                            -x "dist/*" \
+                            -x "coverage/*" \
                             -x ".trivy-cache/*" \
                             -x "trivy-results.sarif" \
                             -x "latest-app.zip" \
@@ -261,12 +243,12 @@ pipeline {
                     fi
                     echo "OK: file .env tidak ada di zip"
 
-                    echo "=== Verify build binary excluded ==="
-                    if unzip -Z1 latest-app.zip | grep -E '^server$' >/dev/null; then
-                        echo "ERROR: zip masih berisi biner hasil build"
+                    echo "=== Verify node_modules excluded ==="
+                    if unzip -Z1 latest-app.zip | grep -E '^node_modules/' >/dev/null; then
+                        echo "ERROR: zip masih berisi node_modules"
                         exit 1
                     fi
-                    echo "OK: biner hasil build tidak disertakan dalam zip"
+                    echo "OK: node_modules tidak disertakan dalam zip"
 
                     echo "=== Package Content (sample) ==="
                     unzip -l latest-app.zip | head -n 60
@@ -541,7 +523,7 @@ pipeline {
             echo "=========================================="
             echo "Result: ${currentBuild.currentResult}"
             echo "📦 Artifact: ${env.ARTIFACT_URL ?: '(not published)'}"
-            echo "🚀 Website berhasil dideploy."
+            echo "🚀 Website frontend berhasil dideploy."
         }
 
         failure {

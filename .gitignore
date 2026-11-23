@@ -1,3 +1,9 @@
+# Environment & Secrets (Keep .env.example)
+.env
+.env.local
+.env.*.local
+!.env.example
+
 # Logs
 logs
 *.log
@@ -10,6 +16,10 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+coverage
+.trivy-cache
+trivy-results.sarif
+latest-app.zip
 *.local
 
 # Editor directories and files

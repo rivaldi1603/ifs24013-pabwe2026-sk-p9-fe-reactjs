@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import {
+  getApiBaseUrl,
+  resolveApiUrl,
   getToken,
   setToken,
   removeToken,
@@ -13,6 +15,16 @@ describe('apiHelper', () => {
   beforeEach(() => {
     localStorage.clear()
     vi.restoreAllMocks()
+  })
+
+  it('resolves API base URL from VITE_DELCOM_BASEURL or VITE_API_BASE_URL', () => {
+    expect(getApiBaseUrl({})).toBe('')
+    expect(getApiBaseUrl({ VITE_DELCOM_BASEURL: 'https://be.s1if.cloud/' })).toBe('https://be.s1if.cloud')
+    expect(getApiBaseUrl({ VITE_DELCOM_BASEURL: 'https://be.s1if.cloud/api' })).toBe('https://be.s1if.cloud')
+    expect(getApiBaseUrl({ VITE_API_BASE_URL: 'https://api.s1if.cloud///' })).toBe('https://api.s1if.cloud')
+
+    expect(resolveApiUrl('/api/public/posts', 'https://be.s1if.cloud')).toBe('https://be.s1if.cloud/api/public/posts')
+    expect(resolveApiUrl('/api/public/posts')).toBe('/api/public/posts')
   })
 
   it('manages token and user in localStorage', () => {
