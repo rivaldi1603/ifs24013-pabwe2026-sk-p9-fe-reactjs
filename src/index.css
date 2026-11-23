@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --accent-color: #2563eb;
+}
+
+[data-accent="emerald"] {
+  --accent-color: #059669;
+}
+
+[data-accent="violet"] {
+  --accent-color: #7c3aed;
+}
+
+[data-accent="amber"] {
+  --accent-color: #d97706;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
