@@ -1,0 +1,15 @@
+# Delcom Blog
+
+> Platform publikasi artikel multi-tier berbasis Golang Gin, PostgreSQL, dan ReactJS SPA dengan penulisan Markdown dan AI Blog Generator terintegrasi mesin pencari.
+
+## Halaman Utama
+
+- [Beranda Artikel Publik](https://ifs24013-pabwe2026-sk-p9-fe-reactjs.s1if.cloud/): Galeri artikel publik dengan pencarian kata kunci real-time dan filter kategori.
+- [Workspace Penulis](https://ifs24013-pabwe2026-sk-p9-fe-reactjs.s1if.cloud/author): Pengelolaan draf dan publikasi artikel penulis serta AI Blog Generator.
+- [Masuk](https://ifs24013-pabwe2026-sk-p9-fe-reactjs.s1if.cloud/login): Halaman autentikasi pengguna Delcom Blog.
+- [Daftar](https://ifs24013-pabwe2026-sk-p9-fe-reactjs.s1if.cloud/register): Halaman registrasi penulis baru.
+
+## Dokumentasi API
+
+- [Swagger UI](https://ifs24013-pabwe2026-sk-p9-be-golang-gin.s1if.cloud/swagger/index.html): Dokumentasi REST API interaktif Delcom Blog.
+- [OpenAPI Spec JSON](https://ifs24013-pabwe2026-sk-p9-be-golang-gin.s1if.cloud/api.json): Spesifikasi OpenAPI JSON backend.

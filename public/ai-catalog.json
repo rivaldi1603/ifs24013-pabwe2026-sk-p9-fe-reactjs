@@ -1,0 +1,15 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Delcom Blog",
+    "documentationUrl": "https://ifs24013-pabwe2026-sk-p9-be-golang-gin.s1if.cloud/swagger/index.html"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:ifs24013-pabwe2026-sk-p9-fe-reactjs.s1if.cloud:openapi:delcom-blog-api",
+      "displayName": "Delcom Blog REST API",
+      "type": "application/vnd.oai.openapi+json",
+      "url": "https://ifs24013-pabwe2026-sk-p9-be-golang-gin.s1if.cloud/api.json"
+    }
+  ]
+}
